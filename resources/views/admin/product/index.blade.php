@@ -35,7 +35,7 @@
                             <div class="nav mt-3 d-flex justify-content-center" id="nav-tab" role="tablist">
                                 <button class="nav-link text-uppercase border-0 bg-white fw-bold active me-3" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basic-info" type="button" role="tab" aria-controls="basic-info" aria-selected="true">Thông tin cơ bản</button>
                                 <button class="nav-link me-3 text-uppercase border-0 bg-white fw-bold" id="content-details-tab" data-bs-toggle="tab" data-bs-target="#content-details" type="button" role="tab" aria-controls="content-details" aria-selected="false">Nội dung chi tiết</button>
-                                <button class="nav-link text-uppercase border-0 bg-white fw-bold" id="thongsokythuat-tab" data-bs-toggle="tab" data-bs-target="#thongsokythuat" type="button" role="tab" aria-controls="thongsokythuat" aria-selected="false">Thông số kỹ thuật</button>
+                                {{-- <button class="nav-link text-uppercase border-0 bg-white fw-bold" id="thongsokythuat-tab" data-bs-toggle="tab" data-bs-target="#thongsokythuat" type="button" role="tab" aria-controls="thongsokythuat" aria-selected="false">Thông số kỹ thuật</button> --}}
                             </div>
                         <div class="card-body">
                             <div class="error">
@@ -50,8 +50,16 @@
                                                 class='form-label'
                                                 for='basic-default-fullname'
                                             >Ảnh</label>
-                                            <input type="file" name="thumb[]" class="file-input" id="file-input-form_product_store" multiple onchange="previewImages(event, 'form_product_store')">
-                                            <div class="image-preview" id="image-preview-form_product_store"></div>
+                                            <input 
+                                                        type="file" 
+                                                        name="images[]" 
+                                                        class="file-input" 
+                                                        id="file-input-store" 
+                                                        multiple 
+                                                        accept=".jpg,.jpeg,.png,.webp"
+                                                        onchange="previewImages(event, 'store')"
+                                                    >                                                    
+                                                    <div class="image-preview" id="image-preview-store"></div>
                                         </div>
                                         <div class='mb-3 w-100 me-3'>
                                             <label
@@ -145,6 +153,10 @@
                                                 <label class="form-check-label" for="defaultCheck3"> Đang Hot </label>
                                             </div>
                                         </div>
+                                        <div id="newType" class="mb-3">
+                                            <label class='form-label'>Phân loại ( ngăn cách bởi dấu phẩy )</label>
+                                            <input type='text' class='form-control ' placeholder='Nhập giá trị (vd: Loại A, Loại B, Loại C)' name='types' />
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="content-details" role="tabpanel" aria-labelledby="content-details-tab" tabindex="0">
                                         <div class="form-group">
@@ -152,12 +164,12 @@
                                             <textarea name="content" class="form-control ckeditor-content ckeditor"></textarea>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="thongsokythuat" role="tabpanel" aria-labelledby="thongsokythuat-tab" tabindex="0">
+                                    {{-- <div class="tab-pane fade" id="thongsokythuat" role="tabpanel" aria-labelledby="thongsokythuat-tab" tabindex="0">
                                         <div class="form-group">
                                             <label class="mb-3" for="">Thông số kỹ  thuật</label>
                                             <textarea name="thongsokythuat" class="form-control ckeditor-thongsokythuat ckeditor"></textarea>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <div class="modal-footer">
@@ -266,7 +278,7 @@
                                 <div class="nav mt-3 d-flex justify-content-center" id="{{$product->id}}-nav-tab" role="tablist">
                                     <button class="nav-link text-uppercase border-0 bg-white fw-bold active me-3" id="basic-info-{{$product->id}}-tab" data-bs-toggle="tab" data-bs-target="#basic-info-{{$product->id}}" type="button" role="tab" aria-controls="basic-info-{{$product->id}}" aria-selected="true">Thông tin cơ bản</button>
                                     <button class="nav-link me-3 text-uppercase border-0 bg-white fw-bold" id="content-details-{{$product->id}}-tab" data-bs-toggle="tab" data-bs-target="#content-details-{{$product->id}}" type="button" role="tab" aria-controls="content-details-{{$product->id}}" aria-selected="false">Nội dung chi tiết</button>
-                                    <button class="nav-link text-uppercase border-0 bg-white fw-bold" id="thongsokythuat-{{$product->id}}-tab" data-bs-toggle="tab" data-bs-target="#thongsokythuat-{{$product->id}}" type="button" role="tab" aria-controls="thongsokythuat-{{$product->id}}" aria-selected="false">Thông số kỹ thuật</button>
+                                    {{-- <button class="nav-link text-uppercase border-0 bg-white fw-bold" id="thongsokythuat-{{$product->id}}-tab" data-bs-toggle="tab" data-bs-target="#thongsokythuat-{{$product->id}}" type="button" role="tab" aria-controls="thongsokythuat-{{$product->id}}" aria-selected="false">Thông số kỹ thuật</button> --}}
                                 </div>
                                 <div class="card-body">
                                     <div class="error">
@@ -282,8 +294,12 @@
                                                         class='form-label'
                                                         for='basic-default-fullname'
                                                     >Ảnh</label>
-                                                    <input type="file" name="thumb" class="file-input" id="file-input-{{$product->id}}" multiple onchange="previewImages(event, {{$product->id}})">
-                                                    <div class="image-preview" id="image-preview-{{$product->id}}"></div>
+                                                    <input accept=".jpg,.jpeg,.png,.webp" type="file" name="images[]" class="file-input" id="file-input-{{$product->id}}" multiple onchange="previewImages(event, {{$product->id}})">
+                                                    <div class="image-preview" id="image-preview-{{$product->id}}">
+                                                        @foreach(json_decode($product->images, true) ?? [] as $image)
+                                                            <img src="/temp/images/product/{{ $image }}" class="img-detail mx-auto mb-2" style="max-height: 100px;" />
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <div class='mb-3 w-100 me-3'>
                                                     <label
@@ -326,7 +342,7 @@
                                                         @if($product->cate_id != null)
                                                             <option value="{{ $product->Category->id ?? '' }}">{{ $product->Category->id ?? '' }}-{{ $product->Category->title ?? '' }}</option>
                                                         @else
-                                                            <option value="">Chọn danh mục/option>
+                                                            <option value="">Chọn danh mục </option>
                                                         @endif
                                                         @foreach($cates as $cate)
                                                             <option value="{{ $cate->id }}">{{ $cate->id }}-{{ $cate->title }}</option>
@@ -397,28 +413,33 @@
                                                         @endif
                                                         <label class="form-check-label" for="defaultCheck3"> Đang Hot </label>
                                                     </div>
-                                                    <div class="form-check">
+                                                  
+                                                    {{-- <div class="form-check">
                                                         @if($product->isnewfeed == 1)
                                                             <input class="form-check-input" type="checkbox" checked name="isnewfeed">
                                                         @else
                                                             <input class="form-check-input" type="checkbox" name="isnewfeed">
                                                         @endif
                                                         <label class="form-check-label" for="defaultCheck3"> Mới nhất </label>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
+                                            <div  class="mb-3">
+                                                        <label class='form-label'>Phân loại ( ngăn cách bởi dấu phẩy )</label>
+                                                        <input type='text' class='form-control ' value="{{$product->types}}" placeholder='Nhập giá trị (vd: Loại A, Loại B, Loại C)' name='types' />
+                                                    </div>
                                             <div class="tab-pane fade" id="content-details-{{$product->id}}" role="tabpanel" aria-labelledby="content-details-{{$product->id}}-tab" tabindex="0">
                                                 <div class="form-group">
                                                     <label class="mb-3" for="">Nội dung</label>
                                                     <textarea name="content" class="form-control ckeditor ckeditor-content"> {!! $product->content !!}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane fade" id="thongsokythuat-{{$product->id}}" role="tabpanel" aria-labelledby="thongsokythuat-{{$product->id}}-tab" tabindex="0">
+                                            {{-- <div class="tab-pane fade" id="thongsokythuat-{{$product->id}}" role="tabpanel" aria-labelledby="thongsokythuat-{{$product->id}}-tab" tabindex="0">
                                                 <div class="form-group">
                                                     <label class="mb-3" for="">Thông số kỹ  thuật</label>
                                                     <textarea name="thongsokythuat" class="form-control ckeditor-thongsokythuat ckeditor">{!! $product->thongsokythuat !!}</textarea>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                         <div class="modal-footer">

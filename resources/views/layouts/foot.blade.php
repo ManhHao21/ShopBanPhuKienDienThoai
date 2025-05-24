@@ -1,5 +1,6 @@
 <!-- Js Plugins -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="/temp/assets/js/jquery-3.3.1.min.js"></script>
 <script src="/temp/assets/js/bootstrap.min.js"></script>
 <script src="/temp/assets/js/jquery.nice-select.min.js"></script>
@@ -12,8 +13,25 @@
 <script src="/temp/assets/js/main.js"></script>
 <script src="/temp/js/main.js"></script>
 <script src="/temp/js/validate.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
+        var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".mySwiper2", {
+      spaceBetween: 10,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      thumbs: {
+        swiper: swiper,
+      },
+    });
    $(document).on("submit", "#form-change-password", function (e) {
     e.preventDefault();
     let form = $(this);

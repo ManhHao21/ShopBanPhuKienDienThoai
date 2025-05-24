@@ -90,9 +90,11 @@ class MainProductController extends Controller
         $new_products = Product::where('active', true)->orderByDesc('id')->take(4)->get();
         $title = $product->Title;
         $initialCommentsCount = 2; // Số lượng ban đầu hiển thị
-            $loadMoreCommentsCount = 5;
-            $comments = Comment::where('product_id', $product->id)->take($initialCommentsCount)->get();
-        return view('product.details',compact('product','new_products','comments','initialCommentsCount','loadMoreCommentsCount'),[
+        $loadMoreCommentsCount = 5;
+        $comments = Comment::where('product_id', $product->id)->take($initialCommentsCount)->get();
+        $types = array_filter(array_map('trim', explode(',', $product->types ?? '')));
+
+        return view('product.details',compact('product','new_products','comments','initialCommentsCount','loadMoreCommentsCount','types'),[
             'title' => $title
         ]);
     }
@@ -106,6 +108,7 @@ class MainProductController extends Controller
         $price = $request->input('price');
         $quantity = $request->input('quantity');
         $subtotal = $request->input('subtotal');
+        $types = $request->input('types');
         // Kiểm tra xem đã có bản ghi có user_id và product_id tương ứng chưa
         $existingRecord = Cart::where('product_id', $productId)
             ->where('user_id', $userId)
@@ -119,6 +122,7 @@ class MainProductController extends Controller
             $cart->nameProduct = $name;
             $cart->quanity = $quantity;
             $cart->subtotal =$subtotal;
+            $cart->types =$types;
             $cart->save();
         }else{
             $existingRecord->quanity =  $existingRecord->quanity + $quantity;

@@ -13,46 +13,92 @@ $(document).ready(function(){
 });
 
 
-// Thêm ảnh
-function previewImages(event, formID) {
-    var previewContainer = $('#image-preview-' + formID);
+// // Thêm ảnh
+function previewImages(event, productId) {
     var files = event.target.files;
-    previewContainer.empty(); // Xóa tất cả ảnh hiện có
+    var previewContainer = $('#image-preview-' + productId);
+    previewContainer.empty();
 
-    $.each(files, function (index, file) {
+    if(files.length === 0) return;
+
+    // Lưu files vào biến để xử lý xóa sau
+    var dt = new DataTransfer();
+
+    Array.from(files).forEach((file, index) => {
+        if(!file.type.startsWith('image/')) return;
+
         var reader = new FileReader();
 
-        reader.onload = function (e) {
-            var imgContainer = $('<div>').addClass('image-container');
-            var imgElement = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-            var deleteButton = $('<button>').html('X').addClass('delete-button').attr('type', 'button');
-
-            deleteButton.on('click', function () {
-                var container = $(this).parent();
-                container.remove();
-                updateFileInput(formID);
+        reader.onload = function(e) {
+            // Tạo wrapper cho ảnh + nút xóa
+            var wrapper = $('<div>', {
+                class: 'preview-wrapper',
+                css: {
+                    position: 'relative',
+                    display: 'inline-block',
+                    marginRight: '10px',
+                    marginBottom: '10px'
+                }
             });
 
-            imgContainer.append(imgElement).append(deleteButton);
-            previewContainer.append(imgContainer);
+            var img = $('<img>', {
+                src: e.target.result,
+                class: 'preview-img',
+                css: {
+                    width: '100px',
+                    height: '100px',
+                    objectFit: 'cover',
+                    border: '1px solid #ddd',
+                    borderRadius: '4px'
+                }
+            });
+
+            var btnRemove = $('<button>', {
+                type: 'button',
+                class: 'btn-remove-img',
+                html: '&times;',
+                css: {
+                    position: 'absolute',
+                    top: '2px',
+                    right: '2px',
+                    background: 'rgba(0,0,0,0.6)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '20px',
+                    height: '20px',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    lineHeight: '16px',
+                    textAlign: 'center',
+                    padding: '0'
+                }
+            });
+
+            btnRemove.on('click', function() {
+                // Xóa ảnh trong preview
+                wrapper.remove();
+
+                // Cập nhật lại files trong input (bỏ file tương ứng)
+                var input = $('#file-input-' + productId)[0];
+                var curFiles = input.files;
+                var newDT = new DataTransfer();
+
+                for(let i = 0; i < curFiles.length; i++) {
+                    if(i !== index) { // giữ lại tất cả file trừ file bị xóa
+                        newDT.items.add(curFiles[i]);
+                    }
+                }
+
+                input.files = newDT.files;
+            });
+
+            wrapper.append(img).append(btnRemove);
+            previewContainer.append(wrapper);
         }
 
         reader.readAsDataURL(file);
     });
-
-    updateFileInput(formID);
-}
-
-function updateFileInput(formID) {
-    var fileInput = $('#file-input-' + formID);
-    var previewContainer = $('#image-preview-' + formID);
-    var imageContainers = previewContainer.find('.image-container');
-
-    if (imageContainers.length > 0) {
-        fileInput.attr('multiple', 'multiple');
-    } else {
-        fileInput.removeAttr('multiple');
-    }
 }
 
 

@@ -36,7 +36,7 @@
                                 <p>Tên sản phẩm</p>
                             </div>
                             <div class="col-md-2 col-12 ">
-                                <p>Size-Color</p>
+                                <p>Loại</p>
                             </div>
                             <div class="col-md-2 col-12 ">
                                 <p>Số lượng</p>

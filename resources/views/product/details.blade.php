@@ -96,6 +96,66 @@
 
         .comment-user-desc {
         font-size: 15px; }
+          .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .mySwiper2 {
+      height: 80%;
+      width: 100%;
+    }
+
+    .mySwiper {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+
+    .mySwiper .swiper-slide {
+      width: 25%;
+      height: 100%;
+      opacity: 0.4;
+    }
+
+    .mySwiper .swiper-slide-thumb-active {
+      opacity: 1;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 </style>
     <!-- Shop Details Section Begin -->
     <section class="shop-details">
@@ -110,60 +170,110 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5 bg-white py-4">
-                    <div class="col-lg-6 col-md-9">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="product__details__pic__item">
-                                    <img class="thumb-product" src="/temp/images/product/{{$product->thumb}}" alt="">
+               <div class="row bg-white py-4">
+                <!-- Cột ảnh chi tiết -->
+                <div class="col-lg-6 col-md-9">
+                    <div class="tab-content">
+                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                        <div>
+                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                            <div class="swiper-wrapper">
+                            @foreach(json_decode($product->images, true) ?? [] as $image)
+                                <div class="swiper-slide">
+                                <img src="/temp/images/product/{{ $image }}" class="img-detail mx-auto" alt="Ảnh chi tiết" />
                                 </div>
+                            @endforeach
                             </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                            @foreach(json_decode($product->images, true) ?? [] as $image)
+                                <div class="swiper-slide">
+                                <img src="/temp/images/product/{{ $image }}" class="img-detail mx-auto" alt="Ảnh thumbnail" />
+                                </div>
+                            @endforeach
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="product__details__text text-left product-infor-main product-info">
-                            <h4 class="title-product-detail">{{$product->Title}}</h4>
-                            <div class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span> - 5 Reviews</span>
-                            </div>
-                            @if($product->discount > 0)
-                                <h5 class="discount text-danger font-weight-bold" style="text-decoration: line-through;">{{ number_format($product->price) }} VNĐ</h5>
-                                <h4 class="price okPrice-product text-info font-weight-bold">{{ number_format($product->discount) }} VNĐ</h4>
-                            @else
-                                <h4 class="price okPrice-product text-info font-weight-bold">{{ number_format($product->price) }} VNĐ</div>
-                            @endif
-                            <div class="d-flex form-add-to-cart" id="form-add-to-cart-details">
-                                @if($product->Amounts > 0)
-                                <div class="number me-3">
-                                    <button type="button " class="decreaseButton text-dark" id="decreaseButton">-</button>
-                                    <input name="quanity" class="quantity numberInput" type="number" inputmode="numeric" id="numberInput" value="0" min="0">
-                                    <button type="button " class="increaseButton text-dark" id="increaseButton">+</button>
-                                </div>
-                                    <a href="" data-user-id="{{ Auth::id() }}" data-product-id="{{$product->id}}" data-quantity="{{$product->Amounts}}" class="btn ml-4 primary-btn rounded-2 add-to-cart call d-flex align-items-center px-3 py-2">
-                                        <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e6e6e6" viewBox="0 0 256 256"><path d="M96,216a16,16,0,1,1-16-16A16,16,0,0,1,96,216Zm88-16a16,16,0,1,0,16,16A16,16,0,0,0,184,200ZM230.44,67.25A8,8,0,0,0,224,64H48.32L40.21,35.6A16.08,16.08,0,0,0,24.82,24H8A8,8,0,0,0,8,40H24.82L61,166.59A24.11,24.11,0,0,0,84.07,184h96.11a23.89,23.89,0,0,0,22.94-16.94l28.53-92.71A8,8,0,0,0,230.44,67.25Z"></path></svg>
-                                        <span class="ms-2 fw-bold fs-6">Thêm vào giỏ</span>
-                                    </a>
-                                @else
-                                    <h4 class="p-2 text-white bg-danger">Hết hàng!</h4>
-                                @endif
-                            </div>
-                            <div class="product__details__btns__option mt-4">
-                                <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                                <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
-                            </div>
-                            <div class="product__details__last__option">
-                                <h5><span>Guaranteed Safe Checkout</span></h5>
-                                <img src="/temp/assets/img//shop-details/details-payment.png" alt="">
-                              
-                            </div>
-                        </div>
                     </div>
                 </div>
+
+                <!-- Cột thông tin sản phẩm -->
+                <div class="col-lg-6 col-md-3">
+                    <div class="product__details__text text-left product-infor-main product-info">
+                    <h4 class="title-product-detail">{{ $product->Title }}</h4>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                        <span> - 5 Reviews</span>
+                    </div>
+
+                    @if($product->discount > 0)
+                        <h5 class="discount text-danger font-weight-bold" style="text-decoration: line-through;">
+                        {{ number_format($product->price) }} VNĐ
+                        </h5>
+                        <h4 class="price okPrice-product text-info font-weight-bold">
+                        {{ number_format($product->discount) }} VNĐ
+                        </h4>
+                    @else
+                        <h4 class="price okPrice-product text-info font-weight-bold">
+                        {{ number_format($product->price) }} VNĐ
+                        </h4>
+                    @endif
+                    @if(!empty($types))
+                        <div class="product__details__option">
+                            <div class="radio-toolbar">
+                                <span>Phân Loại:</span>
+                                @foreach($types as $type)
+                                    <input type="radio" id="{{ $type }}" name="types" value="{{ $type }}" checked>
+                                    <label for="{{ $type }}">{{ $type }}</label>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="d-flex form-add-to-cart" id="form-add-to-cart-details">
+                        @if($product->Amounts > 0)
+                        <div class="number me-3">
+                            <button type="button" class="decreaseButton text-dark" id="decreaseButton">-</button>
+                            <input name="quantity" class="quantity numberInput" type="number" inputmode="numeric" id="numberInput" value="0" min="0" />
+                            <button type="button" class="increaseButton text-dark" id="increaseButton">+</button>
+                        </div>
+                        <a href="#"
+                            data-user-id="{{ Auth::id() }}"
+                            data-product-id="{{ $product->id }}"
+                            data-quantity="{{ $product->Amounts }}"
+                            class="btn ml-4 primary-btn rounded-2 add-to-cart call d-flex align-items-center px-3 py-2">
+                            <svg style="width: 24px; height: 24px" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e6e6e6" viewBox="0 0 256 256">
+                            <path d="M96,216a16,16,0,1,1-16-16A16,16,0,0,1,96,216Zm88-16a16,16,0,1,0,16,16A16,16,0,0,0,184,200ZM230.44,67.25A8,8,0,0,0,224,64H48.32L40.21,35.6A16.08,16.08,0,0,0,24.82,24H8A8,8,0,0,0,8,40H24.82L61,166.59A24.11,24.11,0,0,0,84.07,184h96.11a23.89,23.89,0,0,0,22.94-16.94l28.53-92.71A8,8,0,0,0,230.44,67.25Z"></path>
+                            </svg>
+                            <span class="ms-2 fw-bold fs-6">Thêm vào giỏ</span>
+                        </a>
+                        @else
+                        <h4 class="p-2 text-white bg-danger">Hết hàng!</h4>
+                        @endif
+                    </div>
+
+                    <div class="product__details__btns__option mt-4">
+                        <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                        <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
+                    </div>
+
+                    <div class="product__details__last__option">
+                        <h5><span>Guaranteed Safe Checkout</span></h5>
+                        <img src="/temp/assets/img/shop-details/details-payment.png" alt="Thanh toán an toàn" />
+                    </div>
+                    </div>
+                </div>
+                </div>
+
             </div>
             
         <div class="item-details-blocks container mt-5 py-5 px-0">
@@ -248,7 +358,7 @@
                     <textarea name="comment" class="input-field textarea-note p-3 w-100" id="" rows="3" placeholder="Nhập bình luận *" data-require="Vui lòng nhập nội dung!"></textarea>
                 </div>
             </div>
-            <button type="submit" class="send-comment float-right btn btn-primary">Gửi bình luận</button>
+            <button type="submit" class="send-comment float-right btn btn-primary mt-3">Gửi bình luận</button>
         </form>
         @endguest
 
@@ -306,7 +416,7 @@
                                                     <textarea name="comment" class="input-field textarea-note w-100 p-3" id="" rows="3" placeholder="Nhập bình luận *" data-require="Vui lòng nhập nội dung!"></textarea>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="send-comment float-right btn btn-primary">Gửi bình luận</button>
+                                            <button type="submit" class="send-comment float-right btn btn-primary mt-3">Gửi bình luận</button>
                                         </form>
                                     @endguest
                                     @if($comment->hasChildren())
@@ -393,7 +503,7 @@
                                         <div class="price okPrice-product text-info font-weight-bold">{{ number_format($product->price) }} VNĐ</div>
                                     @endif
                                 </div>
-                                <div class="product__color__select">
+                                {{-- <div class="product__color__select">
                                     <label for="pc-4">
                                         <input type="radio" id="pc-4">
                                     </label>
@@ -403,7 +513,7 @@
                                     <label class="grey" for="pc-6">
                                         <input type="radio" id="pc-6">
                                     </label>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -412,3 +522,6 @@
         </div>
     </section>
 @endsection
+<script>
+
+</script>

@@ -90,6 +90,8 @@ $(document).ready(function() {
                 var nameProduct = $(' .title-product-detail').text();
                 var priceProduct = $(' .okPrice-product').text();
                 var quantity = $(' .quantity').val();
+                var types = $('input[name="types"]:checked').val(); // Lấy giá trị size
+
                 priceProduct =  parseFloat(priceProduct.replace(/,/g, ''))
                 var subtotal = parseInt(quantity) * priceProduct;
                     // Gửi yêu cầu Ajax
@@ -108,6 +110,8 @@ $(document).ready(function() {
                             price: priceProduct,
                             quantity: quantity,
                             subtotal: subtotal,
+                            types: types,  // Gửi giá trị size
+
                         },
                         success: function(response) {
                             toastr.success(response.message, 'Thông báo');
@@ -205,7 +209,7 @@ $(document).ready(function () {
             var price = $(this).find('.price-product').text();
             var quantity = parseInt($(this).find('.quantity').val()); // Chuyển quantity thành số nguyên
             var subtotal = $(this).find('.subtotal').text();
-            var size_color = $(this).find('.size_color').text();
+            var types = $(this).find('.types').text();
 
             // Kiểm tra nếu quantity < 1
             if (quantity < 1) {
@@ -225,7 +229,7 @@ $(document).ready(function () {
                 price: price, 
                 quantity: quantity, 
                 subtotal: subtotal, 
-                size_color: size_color 
+                types: types 
             });
         });
 
@@ -265,7 +269,7 @@ $(document).ready(function () {
                                 '<a href="'+product.slug+'"><h6 class="title text-start text-primary">' + product.title + '</h6></a>'+
                             '</div>'+
                             '<div class="col-md-2 col-12">'+
-                                '<span class="price">'+product.size_color +'</span>'+
+                                '<span class="price">'+product.types +'</span>'+
                             '</div>'+
                             '<div class="col-md-2 col-12 product-infor form-add-to-cart" >'+
                                 '<p class="mb-0">'+product.quantity+'</p>'+

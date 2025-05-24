@@ -91,6 +91,9 @@
                         <div class="col-md-2 col-12 ">
                             <p class="font-weight-bold">Số lượng</p>
                         </div>
+                         <div class="col-md-1 col-12 ">
+                            <p class="font-weight-bold">Loại</p>
+                        </div>
                         <div class="col-md-2 col-12 ">
                             <p class="font-weight-bold">Tổng</p>
                         </div>
@@ -121,6 +124,9 @@
                                            value="{{ $cart->quanity }}" min="0">
                                     <button type="button " class="increaseButton" id="increaseButton">+</button>
                                 </div>
+                            </div>
+                             <div class="col-md-1 col-12">
+                                <span class="types">{{$cart->types}} </span>
                             </div>
                             <div class="col-md-2 col-12">
                                 <span id="subtotal-{{ $cart->id }}" class="subtotal">{{ number_format($cart->subtotal) }} VNĐ</span>

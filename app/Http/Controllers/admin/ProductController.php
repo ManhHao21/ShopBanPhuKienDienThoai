@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         $cates = Category::all();
-        $products = Product::paginate(10);
+        $products = Product::orderByDesc('id')->paginate(10);
         return view('admin.product.index',compact('products','cates'),[
             'title' => 'Quản lý sản phẩm'
         ]);
@@ -21,6 +21,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'title' => 'required',
             'slug' => 'required|unique:products',
@@ -31,15 +32,15 @@ class ProductController extends Controller
         ]);
         // Kiểm tra xem product_id có tồn tại trong bảng Product hay không
         $product = new Product;
-        $product->Title = $request->title;
-        $title = $product->Title;
+        $title = $request->title;
+        $product->Title = $title ;
         $imagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 if ($image->isValid()) {
                     $fileName = Str::slug($request->title) . '-' . time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
                     $image->move(public_path('/temp/images/product/'), $fileName);
-                    $imagePaths[] = '/temp/images/product/' . $fileName;
+                    $imagePaths[] =  $fileName;
                 }
             }
         }
@@ -57,6 +58,8 @@ class ProductController extends Controller
         $product->thongsokythuat = $request->thongsokythuat;
         $product->Amounts = $request->amount;
         $product->content = $request->content;
+        $product->types = $request->types;
+
         $product->save();
         // Chuyển hướng về trang hiển thị danh sách product hoặc trang khác tùy theo yêu cầu của bạn
         return redirect()->back();
@@ -75,15 +78,22 @@ class ProductController extends Controller
             'slug.required' => 'Vui lòng nhập slug',
         ]);
         // Kiểm tra xem product_id có tồn tại trong bảng Product hay không
-        $product->Title = $request->title;
-        $title = $product->Title;
-        $thumb = $request->file('thumb'); // Lấy file ảnh từ file Upload
-        if ($thumb) {
-            $fileName = Str::slug($title) . '.jpg'; // Tên ảnh theo Slug Title
-//                $avatar->storeAs('public/images/avatars', $fileName); // Lưu ảnh đã thêm vào đường dẫn này
-            $thumb->move(public_path('temp/images/product'), $fileName); // Di chuyển ảnh vào thư mục này
+        $title = $request->title;
+        $product->Title = $title ;
+          $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) {
+                    $fileName = Str::slug($request->title) . '-' . time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('/temp/images/product/'), $fileName);
+                    $imagePaths[] = $fileName;
+                }
+            }
+        }
 
-            $product->thumb = $fileName; // Lưu tên file ảnh theo slug Title
+        if (!empty($imagePaths)) {
+            $product->images = json_encode($imagePaths);
+            $product->thumb = $imagePaths[0];
         }
         $product->description = $request->desc;
         $product->slug = $request->slug;
@@ -96,6 +106,8 @@ class ProductController extends Controller
         $product->thongsokythuat = $request->thongsokythuat;
         $product->Amounts = $request->amount;
         $product->content = $request->content;
+        $product->types = $request->types;
+
         $product->save();
         // Chuyển hướng về trang hiển thị danh sách product hoặc trang khác tùy theo yêu cầu của bạn
         return redirect()->back();

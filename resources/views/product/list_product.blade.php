@@ -113,7 +113,7 @@
                                             <div class="price okPrice-product text-info font-weight-bold">{{ number_format($product->price) }} VNĐ</div>
                                         @endif
                                     </div>
-                                    <div class="product__color__select">
+                                    {{-- <div class="product__color__select">
                                         <label for="pc-4">
                                             <input type="radio" id="pc-4">
                                         </label>
@@ -123,7 +123,7 @@
                                         <label class="grey" for="pc-6">
                                             <input type="radio" id="pc-6">
                                         </label>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
