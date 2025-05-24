@@ -3936,3 +3936,39 @@ ol {
 		width: 20px; }
 		
 }
+
+/* Đảm bảo ảnh chiếm toàn bộ chiều rộng và chiều cao của phần tử */
+/* Đảm bảo ảnh chiếm toàn bộ chiều rộng và chiều cao của phần tử */
+.banner__item__pic {
+    position: relative;
+}
+
+/* Ảnh bên trong phần tử */
+.banner__item__pic img {
+    object-fit: cover;
+    transition: transform 0.5s ease; /* Chuyển đổi khi ảnh phóng to */
+}
+
+/* Thêm thanh ánh sáng */
+.banner__item__pic::before {
+    content: '';
+    position: absolute;
+    top: -180%;
+    left: -100%;
+    width: 25%;
+    height: 400%;
+    background: rgb(186 27 27 / 40%);
+    transform: rotate(45deg);
+    transition: top 0.5s ease, left 0.5s ease;
+    z-index: 999;
+}
+
+/* Khi hover vào, phóng to ảnh và di chuyển thanh ánh sáng */
+.banner__item:hover .img-banner {
+    transform: scale(1.1); /* Phóng to ảnh */
+}
+
+.banner__item:hover .banner__item__pic::before {
+    top: 90%;
+    left: 0; /* Di chuyển thanh ánh sáng từ góc trái trên xuống góc dưới phải */
+}

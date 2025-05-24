@@ -23,6 +23,108 @@
     background-color:#dc3545 !important;
 }
 </style>
+<style>
+    /* Sidebar */
+.simple-sidebar {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-navbar {
+    padding-top: 20px;
+}
+
+.nav-link {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #555;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Sidebar avatar */
+.d-user-avater h4 {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.d-user-avater span {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Main Content */
+.dashboard-wrapper {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.form-submit {
+    margin-top: 20px;
+}
+
+.form-submit h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 8px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+button {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Avatar preview style */
+#avatar-preview {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#avatar-preview:hover {
+    transform: scale(1.05);
+}
+
+</style>
 <header class="header">
     <div class="header__top">
         <div class="container">
@@ -38,10 +140,18 @@
                             <p class="check-auth d-none">1</p>
                             <div class="header__top__hover">
                                 <span>{{ Auth::user()->name }} <i class="arrow_carrot-down"></i></span>
-                                <ul>
+                                <ul class="text-center">
                                     {{-- <li>
                                         <a href="" class="dropdown-item" ><h6>Trang cá nhân</h6></a>
                                     </li> --}}
+                                    @if(Auth::user()->level == 1)
+                                        <li>
+                                            <a href="/admin" class="dropdown-item fw-bold"><h6>Quản trị</h6></a>
+                                        </li>  
+                                    @endif
+                                    <li>
+                                        <a href="{{ route('profile.index') }}" class="dropdown-item fw-bold"><h6>Trang cá nhân</h6></a>
+                                    </li>
                                     <li>
                                         <form action="{{route('logout')}}" method="post" class="logout">
                                             @csrf
@@ -69,7 +179,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo py-2">
-                    <a href="/"><img src="/temp/assets/img/logo.png" alt=""></a>
+                    <a href="/"><img src="/temp/assets/img/logo.png" alt="" width="130"></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">

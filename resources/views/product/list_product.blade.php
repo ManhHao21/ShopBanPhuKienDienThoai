@@ -97,7 +97,7 @@
                                 <div class="product__item__pic set-bg position-relative" data-setbg="/temp/images/product/{{$product->thumb}}">
                                     <img class="thumb-product d-none" src="/temp/images/product/{{$product->thumb}}" alt="{{$product->title}}">
                                     <a href="{{ route('products.details', ['slug' =>$product->slug]) }}" class="detail-product-bg position-absolute" style="bottom: 0; top: 0; right: 0; left: 0"></a>
-                                    <a href="" class="badge badge-warning position-relative z-20">{{$product->Category->title}}</a>
+                                    <a href="" class="badge badge-warning position-relative z-20">{{$product->Category->title ?? ''}}</a>
                                     <ul class="product__hover">
                                         <li><a href="{{ route('products.details', ['slug' =>$product->slug]) }}"><img src="/temp/assets/img//icon/search.png" alt=""><span>Chi tiết</span></a></li>
                                     </ul>

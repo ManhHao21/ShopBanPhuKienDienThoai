@@ -129,7 +129,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="content">
-                                                            <a href="" class="tag">{{$product->Category->title}}</a>
+                                                            <a href="" class="tag">{{$product->Category->title ?? ''}}</a>
                                                             <h3 class="title">
                                                                 <a class="title-product" href="{{ route('products.details', ['slug' =>$product->slug]) }}">{{$product->Title}}</a>
                                                             </h3>
@@ -188,7 +188,7 @@
                                                         </div>
                                                         <div class="col-lg-7 col-md-5 col-12">
                                                             <div class="content">
-                                                                <a href="javascript:void(0)" class="tag">{{$product->Category->title}}</a>
+                                                                <a href="javascript:void(0)" class="tag">{{$product->Category->title ?? ''}}</a>
                                                                 <h3 class="title">
                                                                     <a class="title-product" href="{{ route('products.details', ['slug' =>$product->slug]) }}">{{$product->Title}}</a>
                                                                 </h3>

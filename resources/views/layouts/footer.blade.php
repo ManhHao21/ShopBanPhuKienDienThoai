@@ -4,7 +4,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="#" class=""><img src="/temp/assets/img/logo.png" alt=""></a>
+                        <a href="#" class=""><img src="/temp/assets/img/logo.png" alt="" width="130"></a>
                     </div>
                     <p>Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm thiết kế.</p>
                     <a href="#"><img src="/temp/assets/img/payment.png" alt=""></a>
@@ -42,20 +42,6 @@
                             <button type="submit"><span class="icon_mail_alt"></span></button>
                         </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="footer__copyright__text">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    <p>Bản quyền ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>2024
-                        Tất cả các quyền được bảo lưu | Mẫu thiết kế này được tạo bởi <i class="fa fa-heart-o" aria-hidden="true"></i> bởi <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    </p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PageController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +80,20 @@ Route::middleware(['auth'])->group(function() {
 
 // Thanh toán thành công
     Route::get('/checkout-success', [MainCheckoutController::class, 'showOrder'])->name('checkout.success');
+
+    Route::post('/send-feedback',[PageController::class,'sendFeedback'])->name('sendFeedBack');
+
+// Profile
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'infoProfile'])->name('profile.index');
+        Route::post('/update/{id}', [ProfileController::class, 'updateProfile'])->name('profile.update');;
+        Route::get('/showChangePass', [ProfileController::class, 'showChangePass'])->name('showChangePass');
+        Route::post('/change-password', [ProfileController::class, 'changePass'])->name('changePass');
+        Route::get('/my-orders', [ProfileController::class, 'myOrder'])->name('myOrder');
+        Route::put('/order/{id}/cancel', [ProfileController::class, 'cancel'])->name('order.cancel');
+
+    });
+
     // Admin
     Route::middleware(['auth', 'checkLevel'])->group(function() {
 //    Route::post('/logout',[UsersController::class,'logout'])->name('logout');
@@ -115,6 +131,10 @@ Route::middleware(['auth'])->group(function() {
             //        Orders
             Route::resource('orders', OrderController::class);
             Route::post('/orders/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+
+            // Feedback
+            Route::get('/feedback',[FeedbackController::class,'index'])->name('feedback.index');
 
         });
     });

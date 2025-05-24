@@ -86,6 +86,12 @@
             </a>
         </li>
         <li class='menu-item'>
+            <a href='{{route('feedback.index')}}' class='menu-link'>
+                <i class='menu-icon tf-icons bx bx-food-menu'></i>
+                <div data-i18n='Layouts'>Danh sách phản hồi</div>
+            </a>
+        </li>
+        <li class='menu-item'>
             <a href='{{route("settings.index")}}' class='menu-link'>
                 <i class='menu-icon tf-icons bx bx-street-view'></i>
                 <div data-i18n='Layouts'>Cấu hình</div>

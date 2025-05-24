@@ -76,6 +76,7 @@ class MainCheckoutController extends Controller
             if($cartItem->user_id == Auth::id()){
                 $productsData[] = [
                     'title' => $cartItem->nameProduct,
+                    'thumb' => $cartItem->thumb,
                     'slug' => $cartItem->Product->slug,
                     'price' => $cartItem->price,
                     'quantity' => $cartItem->quanity,

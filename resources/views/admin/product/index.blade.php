@@ -50,7 +50,7 @@
                                                 class='form-label'
                                                 for='basic-default-fullname'
                                             >Ảnh</label>
-                                            <input type="file" name="thumb" class="file-input" id="file-input-form_product_store" multiple onchange="previewImages(event, 'form_product_store')">
+                                            <input type="file" name="thumb[]" class="file-input" id="file-input-form_product_store" multiple onchange="previewImages(event, 'form_product_store')">
                                             <div class="image-preview" id="image-preview-form_product_store"></div>
                                         </div>
                                         <div class='mb-3 w-100 me-3'>
@@ -198,7 +198,7 @@
                             <td width="250px">{{$product->Title}}</td>
                             <td>
                                 @if($product->cate_id != null)
-                                    {{$product->Category->title}}
+                                    {{$product->Category->title ?? ''}}
                                 @else
                                     Chưa chọn danh mục
                                 @endif
@@ -324,7 +324,7 @@
                                                            for='basic-default-email'>Danh mục</label>
                                                     <select name="cate_id" class="form-control" id="cate_id-{{$product->id}}">
                                                         @if($product->cate_id != null)
-                                                            <option value="{{ $product->Category->id }}">{{ $product->Category->id }}-{{ $product->Category->title }}</option>
+                                                            <option value="{{ $product->Category->id ?? '' }}">{{ $product->Category->id ?? '' }}-{{ $product->Category->title ?? '' }}</option>
                                                         @else
                                                             <option value="">Chọn danh mục/option>
                                                         @endif

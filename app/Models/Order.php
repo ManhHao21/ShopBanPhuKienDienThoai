@@ -12,6 +12,7 @@ class Order extends Model
     const DaDatHang = 1;
     const DangGiaoHang = 2;
     const GiaoHangThanhCong = 3;
+    const HuyDonHang  = 4;
     public function User()
     {
         return $this->belongsTo( User::class, 'user_id','id');

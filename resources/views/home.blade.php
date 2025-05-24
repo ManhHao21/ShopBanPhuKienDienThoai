@@ -1,6 +1,12 @@
 @extends('layouts.layout')
 @section('content')
+<style>
+    .owl-next, .owl-prev{
+        background: #ffffff69 !important;
+        border-radius: 5px;
 
+    }
+</style>
 <section class="hero">
     <div class="hero__slider owl-carousel owl-loaded owl-drag">
         
@@ -23,13 +29,13 @@
 <section class="banner spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 offset-lg-4">
+            <div class="col-lg-8 offset-lg-4">
                 <div class="banner__item">
                     <div class="banner__item__pic">
-                        <img height="420" src="/temp/assets/img/banner/banner-1.jpg" alt="">
+                        <img class="img-banner" height="420" src="/temp/assets/img/banner/banner-1.jpg" alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Iphone độc nhất vô nhị</h2>
+                        <h2>Gimbal Q04 kèm đèn HULAKO Hot Nhất</h2>
                         <a href="/shop">Khám phá cửa hàng</a>
                     </div>
                 </div>
@@ -37,21 +43,21 @@
             <div class="col-lg-5">
                 <div class="banner__item banner__item--middle">
                     <div class="banner__item__pic">
-                        <img height="420" src="/temp/assets/img/banner/banner-2.jpg" alt="">
+                        <img class="img-banner" height="420" src="/temp/assets/img/banner/banner-2.jpg" alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Xiaomi đời mới hấp dẫn</h2>
+                        <h2>Sạc Dự Phòng Mini 30000/20000mAh 35W hấp dẫn</h2>
                         <a href="/shop">Khám phá cửa hàng</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7">
-                <div class="banner__item banner__item--last">
+            <div class="col-lg-8 offset-lg-4">
+                <div class="banner__item banner__item--last mt-0 ">
                     <div class="banner__item__pic">
-                        <img height="420" src="/temp/assets/img/banner/banner-3.jpg" alt="">
+                        <img class="img-banner" height="420" src="/temp/assets/img/banner/banner-3.jpg" alt="">
                     </div>
                     <div class="banner__item__text">
-                        <h2>Ưu đãi sử dụng Galaxy Note9 </h2>
+                        <h2>Ưu đãi Tai nghe bluetooth Rockspace Retro TWS</h2>
                         <a href="/shop">Khám phá cửa hàng</a>
                     </div>
                 </div>
@@ -76,7 +82,7 @@
                         <div class="product__item__pic set-bg position-relative" data-setbg="/temp/images/product/{{$product->thumb}}">
                             <img class="thumb-product d-none" src="/temp/images/product/{{$product->thumb}}" alt="{{$product->title}}">
                             <a href="{{ route('products.details', ['slug' =>$product->slug]) }}" class="detail-product-bg position-absolute" style="bottom: 0; top: 0; right: 0; left: 0"></a>
-                            <a href="" class="badge badge-warning position-relative z-20">{{$product->Category->title}}</a>
+                            <a href="" class="badge badge-warning position-relative z-20">{{$product->Category->title ?? ''}}</a>
                             <ul class="product__hover">
                                 <li><a href="{{ route('products.details', ['slug' =>$product->slug]) }}"><img src="/temp/assets/img//icon/search.png" alt=""><span>Chi tiết</span></a></li>
                             </ul>
@@ -123,14 +129,14 @@
                     <img src="/temp/assets/img/product-sale.png" alt="">
                     <div class="hot__deal__sticker">
                         <span>Giảm giá</span>
-                        <h5>$29.99</h5>
+                        <h5>9.000 đ</h5>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 offset-lg-1">
                 <div class="categories__deal__countdown">
                     <span>Ưu đãi trong tuần</span>
-                    <h2>Iphone 16 ProMax đủ các loại màu</h2>
+                    <h2>Đồng giá các loại phụ kiện</h2>
                     <div class="categories__deal__countdown__timer" id="countdown">
                         <div class="cd-item"><span>30</span> <p>Ngày</p></div>
                         <div class="cd-item"><span>02</span> <p>Giờ</p></div>

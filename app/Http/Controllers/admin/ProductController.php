@@ -33,14 +33,19 @@ class ProductController extends Controller
         $product = new Product;
         $product->Title = $request->title;
         $title = $product->Title;
-        $thumb = $request->file('thumb'); // Lấy file ảnh từ file Upload
-        if ($thumb) {
-            $fileName = Str::slug($title) . '.jpg'; // Tên ảnh theo Slug Title
-//                $avatar->storeAs('public/images/avatars', $fileName); // Lưu ảnh đã thêm vào đường dẫn này
-            $thumb->move(public_path('temp/images/product'), $fileName); // Di chuyển ảnh vào thư mục này
-
-            $product->thumb = $fileName; // Lưu tên file ảnh theo slug Title
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) {
+                    $fileName = Str::slug($request->title) . '-' . time() . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('/temp/images/product/'), $fileName);
+                    $imagePaths[] = '/temp/images/product/' . $fileName;
+                }
+            }
         }
+
+        $product->images = !empty($imagePaths) ? json_encode($imagePaths) : null;
+        $product->thumb = !empty($imagePaths) ? $imagePaths[0] : null;
         $product->description = $request->desc;
         $product->slug = $request->slug;
         $product->cate_id = $request->cate_id;

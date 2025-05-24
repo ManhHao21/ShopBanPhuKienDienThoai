@@ -26,16 +26,17 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="contact__form">
-                    <form action="#">
+                    <form id="form_contact" method="POST" action="{{route('sendFeedBack')}}">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Họ và Tên">
+                                <input name="name" required type="text" placeholder="Họ và Tên">
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Email">
+                                <input name="email" required type="email" placeholder="Email">
                             </div>
                             <div class="col-lg-12">
-                                <textarea placeholder="Lời Nhắn"></textarea>
+                                <textarea name="contents" required placeholder="Lời Nhắn"></textarea>
                                 <button type="submit" class="site-btn">Gửi Lời Nhắn</button>
                             </div>
                         </div>
