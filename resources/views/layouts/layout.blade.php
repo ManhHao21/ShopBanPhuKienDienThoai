@@ -11,6 +11,7 @@
     @yield('content')
     <!-- footer -->
     @include('layouts.footer')
+    @include('layouts.chat');
 </div>
 @include('layouts.foot')
 </body>

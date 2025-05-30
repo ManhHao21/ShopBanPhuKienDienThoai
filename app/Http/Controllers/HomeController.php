@@ -7,7 +7,9 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Pagination\LengthAwarePaginator;
+
 class HomeController extends Controller
 {
     /**
@@ -65,5 +67,15 @@ class HomeController extends Controller
         return view('layouts.search', compact('searchResults', 'category','keyword'), [
             'title' => 'Kết quả tìm kiếm cho từ khóa " ' . $keyword . ' "'
         ]);
+    }
+
+    public function chat(Request $request)
+    {
+        $response = Http::post('http://localhost:5005/webhooks/rest/webhook', [
+            'sender' => 'user',
+            'message' => $request->input('message'),
+        ]);
+
+        return response()->json($response->json());
     }
 }

@@ -37,6 +37,10 @@ use App\Http\Controllers\ProfileController;
 Route::get('/clear-cache',function(){
     $exitCode = Artisan::call('cache:clear');
 });
+
+Route::post('/chat',[App\Http\Controllers\HomeController::class,'chat'])->name('chat');
+
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/posts', [MainPostController::class, 'index'])->name('post');
 Route::get('/posts/{slug}', [MainPostController::class, 'details'])->name('posts.details');

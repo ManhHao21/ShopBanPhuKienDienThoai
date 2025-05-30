@@ -13,7 +13,7 @@
 <script src="/temp/assets/js/main.js"></script>
 <script src="/temp/js/main.js"></script>
 <script src="/temp/js/validate.js"></script>
-
+<script type="text/javascript" src="/temp/build/js/chat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
         var swiper = new Swiper(".mySwiper", {
